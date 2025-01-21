@@ -26,18 +26,21 @@ void APBallController::SetupInputComponent()
 
 	if (UEnhancedInputComponent* Input = Cast<UEnhancedInputComponent>(InputComponent))
 	{
-		Input->BindAction(MoveAction, ETriggerEvent::Started, this, &APBallController::MoveBall);
-		Input->BindAction(JumpAction, ETriggerEvent::Started, this, &APBallController::Jump);
+		Input->BindAction(MoveAction, ETriggerEvent::Triggered, this, &APBallController::MoveBall);
+		Input->BindAction(JumpAction, ETriggerEvent::Triggered, this, &APBallController::Jump);
 	}
 }
 
 void APBallController::MoveBall(const FInputActionValue& Value)
 {
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, "MoveBall");
+	FVector2D MoveDirection = Value.Get<FVector2D>();
+	
+	if (!MoveDirection.IsZero())
+		Ball->Move(MoveDirection);
 }
 
 void APBallController::Jump(const FInputActionValue& Value)
 {
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, "Jump");
+	Ball->Jump(); 
 }
 

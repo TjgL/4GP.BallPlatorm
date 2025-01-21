@@ -39,3 +39,13 @@ void APBall::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 }
 
+void APBall::Jump() const
+{
+	MovementComponent->Jump();
+}
+
+void APBall::Move(const FVector2D MoveDirection) const
+{
+	MovementComponent->Move(MoveDirection);
+}
+

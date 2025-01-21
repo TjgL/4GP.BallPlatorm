@@ -21,6 +21,9 @@ public:
 	virtual void Tick(float DeltaTime) override;
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	void Jump() const;
+	void Move(const FVector2D MoveDirection) const;
+	
 protected:
 	virtual void BeginPlay() override;
 
