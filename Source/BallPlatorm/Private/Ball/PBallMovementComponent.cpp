@@ -42,11 +42,11 @@ void UPBallMovementComponent::Jump()
 	}
 }
 
-void UPBallMovementComponent::Move(const FVector2D MoveDirection)
+void UPBallMovementComponent::Move(const FVector MoveDirection) const
 {
 	if (Mesh)
 	{
-		const FVector2D Speed = MoveDirection * MoveSpeed * ForceMultiplier;
+		const FVector Speed = MoveDirection * MoveSpeed * ForceMultiplier;
 		Mesh->AddForce(FVector(Speed.X, Speed.Y, 0.0f));
 	}
 }

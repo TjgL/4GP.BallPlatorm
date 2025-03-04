@@ -30,6 +30,9 @@ private:
 	UFUNCTION()
 	void Jump(const FInputActionValue& Value);
 
+	UFUNCTION()
+	void Look(const FInputActionValue& Value);
+
 private:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta = (AllowPrivateAccess = true))
 	TObjectPtr<UInputMappingContext> InputContext;
@@ -39,6 +42,9 @@ private:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta = (AllowPrivateAccess = true))
 	TObjectPtr<UInputAction> JumpAction;
+	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta = (AllowPrivateAccess = true))
+	TObjectPtr<UInputAction> LookAction;
 
 private:
 	TObjectPtr<APBall> Ball;

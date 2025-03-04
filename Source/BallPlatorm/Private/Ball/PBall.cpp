@@ -44,8 +44,8 @@ void APBall::Jump() const
 	MovementComponent->Jump();
 }
 
-void APBall::Move(const FVector2D MoveDirection) const
+void APBall::Move(const FVector MoveInput)
 {
-	MovementComponent->Move(MoveDirection);
+	MovementComponent->Move(MoveInput);
 }
 

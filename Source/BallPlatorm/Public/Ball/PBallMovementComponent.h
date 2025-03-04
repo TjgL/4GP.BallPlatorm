@@ -29,7 +29,7 @@ public:
 	void Jump();
 	
 	UFUNCTION(BlueprintCallable)
-	void Move(FVector2D MoveDirection);
+	void Move(FVector MoveDirection) const;
 
 private:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Movement", meta=(AllowPrivateAccess=true))

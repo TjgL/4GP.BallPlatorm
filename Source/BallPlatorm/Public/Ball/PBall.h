@@ -22,8 +22,8 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	void Jump() const;
-	void Move(const FVector2D MoveDirection) const;
-	
+	void Move(FVector MoveInput);
+
 protected:
 	virtual void BeginPlay() override;
 
