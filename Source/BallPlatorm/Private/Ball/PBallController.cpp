@@ -4,6 +4,7 @@
 #include "Ball/PBallController.h"
 #include "EnhancedInputComponent.h"
 #include "Ball/PBall.h"
+#include "GameFramework/SpringArmComponent.h"
 
 void APBallController::BeginPlay()
 {
@@ -29,6 +30,7 @@ void APBallController::SetupInputComponent()
 		Input->BindAction(MoveAction, ETriggerEvent::Triggered, this, &APBallController::MoveBall);
 		Input->BindAction(JumpAction, ETriggerEvent::Triggered, this, &APBallController::Jump);
 		Input->BindAction(LookAction, ETriggerEvent::Triggered, this, &APBallController::Look);
+		Input->BindAction(ZoomAction, ETriggerEvent::Triggered, this, &APBallController::Zoom);
 	}
 }
 
@@ -66,5 +68,11 @@ void APBallController::Look(const FInputActionValue& Value)
 		AddYawInput(Input.X);
 		AddPitchInput(Input.Y);
 	}
+}
+
+void APBallController::Zoom(const FInputActionValue& Value)
+{
+	const float Input = Value.Get<float>();
+	Ball->GetSpringArmComponent()->TargetArmLength += Input * ZoomSpeed;
 }
 

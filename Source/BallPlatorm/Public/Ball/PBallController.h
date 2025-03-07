@@ -33,6 +33,13 @@ private:
 	UFUNCTION()
 	void Look(const FInputActionValue& Value);
 
+	UFUNCTION()
+	void Zoom(const FInputActionValue& Value);
+
+private:
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (AllowPrivateAccess = true, UIMin = 0.1f, ClampMin = 0.1f))
+	float ZoomSpeed = 10;
+
 private:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta = (AllowPrivateAccess = true))
 	TObjectPtr<UInputMappingContext> InputContext;
@@ -45,6 +52,9 @@ private:
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta = (AllowPrivateAccess = true))
 	TObjectPtr<UInputAction> LookAction;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta = (AllowPrivateAccess = true))
+	TObjectPtr<UInputAction> ZoomAction;
 
 private:
 	TObjectPtr<APBall> Ball;

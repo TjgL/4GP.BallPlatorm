@@ -24,6 +24,8 @@ public:
 	void Jump() const;
 	void Move(FVector MoveInput);
 
+	USpringArmComponent* GetSpringArmComponent() { return SpringArm; }
+
 protected:
 	virtual void BeginPlay() override;
 
