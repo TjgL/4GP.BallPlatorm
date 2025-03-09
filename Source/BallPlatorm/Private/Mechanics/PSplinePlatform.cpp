@@ -39,28 +39,36 @@ void APSplinePlatform::Tick(float DeltaTime)
 void APSplinePlatform::CalculatePosition(const bool Opening)
 {
 	float const SplineLenght = SplineComponent->GetSplineLength();
-	
 	float const Distance = MoveSpeed * GetWorld()->GetDeltaSeconds();
-	float const NewPosition = PositionOnSpline + (Opening ? 1 : -1) * ((Distance / SplineLenght) * 100);
+	bool const IsLoop = SplineComponent->IsClosedLoop();
 	
-	if (Opening)
+	float NewPosition = PositionOnSpline + (Opening ? 1 : -1) * ((Distance / SplineLenght) * 100);
+	
+	if (NewPosition > 1.f)
 	{
-		if (NewPosition > 1.f)
+		if (IsLoop)
+		{
+			NewPosition = NewPosition - 1.f;
+		}
+		else
 		{
 			MoveDirection = bDoReverseOnEnd ? EPlatformDirection::Back : EPlatformDirection::Stop;
-			PositionOnSpline = PositionOnSpline - (Distance / SplineLenght) * 100;
-			return;
+			NewPosition = PositionOnSpline - (Distance / SplineLenght) * 100;	
 		}
 	}
-	else
+	else if (NewPosition < 0.f)
 	{
-		if (NewPosition < 0.f)
+		if (IsLoop)
+		{
+			NewPosition = NewPosition + 1.f;
+		}
+		else
 		{
 			MoveDirection = bDoReverseOnEnd ? EPlatformDirection::Forward : EPlatformDirection::Stop;
-			PositionOnSpline = PositionOnSpline + (Distance / SplineLenght) * 100;
-			return;
+			NewPosition = PositionOnSpline + (Distance / SplineLenght) * 100;
 		}
 	}
+	
 	
 	PositionOnSpline = NewPosition;
 }

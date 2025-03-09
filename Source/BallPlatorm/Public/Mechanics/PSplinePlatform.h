@@ -29,18 +29,23 @@ protected:
 #endif
 
 private:
+	/* The Position of the platform on the spline. */
 	UPROPERTY(EditAnywhere, Category=Platform, meta = (AllowPrivateAccess = true, ClampMin = 0.f, ClampMax = 1.f))
 	float PositionOnSpline = 0.f;
 
+	/* If set, the rotation of the platform will match the angle of the spline. */
 	UPROPERTY(EditAnywhere, Category=Platform, meta = (AllowPrivateAccess = true))
 	bool bLockRotationToSpline = true;
 
+	/* The direction of the platform movement. */
 	UPROPERTY(EditAnywhere, Category=Platform, meta = (AllowPrivateAccess = true))
 	EPlatformDirection MoveDirection;
 
+	/* The speed at which the platform moves. */
 	UPROPERTY(EditAnywhere, Category=Platform, meta = (AllowPrivateAccess = true, ClampMin = 0.f))
-	float MoveSpeed = 100.f;
+	float MoveSpeed = 2.f;
 
+	/* If set, the platform will revert if it reaches the end of a non-closed spline. */
 	UPROPERTY(EditAnywhere, Category=Platform, meta = (AllowPrivateAccess = true))
 	bool bDoReverseOnEnd = true;
 
