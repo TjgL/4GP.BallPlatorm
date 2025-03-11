@@ -68,9 +68,8 @@ void APSplinePlatform::CalculatePosition(const bool Opening)
 
 void APSplinePlatform::MovePlatform() const
 {
-	float const SplineLenght = SplineComponent->GetSplineLength();
-	FVector const PlatformPosition = SplineComponent->GetLocationAtDistanceAlongSpline(PositionOnSpline * SplineLenght, ESplineCoordinateSpace::World);
-	FQuat const RailRotation = SplineComponent->GetQuaternionAtDistanceAlongSpline(PositionOnSpline * SplineLenght, ESplineCoordinateSpace::World);
+	FVector const PlatformPosition = SplineComponent->GetLocationAtTime(PositionOnSpline, ESplineCoordinateSpace::World);
+	FQuat const RailRotation = SplineComponent->GetQuaternionAtTime(PositionOnSpline, ESplineCoordinateSpace::World);
 
 	if (bLockRotationToSpline)
 	{
