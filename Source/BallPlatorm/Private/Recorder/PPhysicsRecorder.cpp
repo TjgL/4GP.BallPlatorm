@@ -33,28 +33,23 @@ void UPPhysicsRecorder::TickComponent(float DeltaTime, ELevelTick TickType, FAct
 	}
 }
 
-void UPPhysicsRecorder::InitializeComponent()
-{
-	Super::InitializeComponent();
-
-	
-}
-
 void UPPhysicsRecorder::CheckQueueSize()
 {
+	// Since our array is limited in size, we go back to the first position to add new data, overriding the previous n-MaxRecordedFrame physic data
 	if (CurrentIndex >= MaxRecordedFrame)
 	{
 		CurrentIndex = 0;
 	}
 	else if (CurrentIndex < 0)
 	{
-		if (RecordedStates[MaxRecordedFrame] == nullptr)
+		if (RecordedStates[MaxRecordedFrame - 1] == nullptr)
 		{
 			CurrentIndex = 0;
+			RecordState = ERecordState::ERS_Recording;
 		}
 		else
 		{
-			CurrentIndex = MaxRecordedFrame;
+			CurrentIndex = MaxRecordedFrame - 1;
 		}
 	}
 }
@@ -66,7 +61,7 @@ void UPPhysicsRecorder::Setup(UMeshComponent* MeshToRecord)
 
 void UPPhysicsRecorder::RecordOneFrame()
 {
-	FPRecorderData Data = FPRecorderData(Mesh->GetPhysicsLinearVelocity(),
+	FPRecorderData* Data = new FPRecorderData(Mesh->GetPhysicsLinearVelocity(),
 		Mesh->GetPhysicsAngularVelocityInRadians(),
 		Mesh->GetComponentLocation(),
 		Mesh->GetComponentRotation());
@@ -80,14 +75,19 @@ void UPPhysicsRecorder::RewindLastFrame()
 {
 	const FPRecorderData* Data = RecordedStates[CurrentIndex];
 	if (Data == nullptr)
+	{
+		CurrentIndex = 0;
+		RecordState = ERecordState::ERS_Recording;
 		return;
+	}
 	
 	SetMeshToData(*Data);
+	RecordedStates[CurrentIndex] = nullptr;
 	CurrentIndex--;
 	CheckQueueSize();
 }
 
-void UPPhysicsRecorder::SetMeshToData(const FPRecorderData& Data)
+void UPPhysicsRecorder::SetMeshToData(const FPRecorderData& Data) const
 {
 	Mesh->SetPhysicsLinearVelocity(Data.Velocity);
 	Mesh->SetPhysicsAngularVelocityInRadians(Data.AngularVelocityRadians);

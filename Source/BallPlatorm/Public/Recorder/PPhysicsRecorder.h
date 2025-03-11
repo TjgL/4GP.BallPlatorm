@@ -18,22 +18,21 @@ public:
 	UPPhysicsRecorder();
 	// Voir pour register une tick function custom, au niveau du component, bind plusieurs ticks fonction
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
-
-	virtual void InitializeComponent() override;
 	
 	void RecordOneFrame();
 	void RewindLastFrame();
-	void SetMeshToData(const FPRecorderData& Data);
+	void SetMeshToData(const FPRecorderData& Data) const;
 	void SetRecordState(const ERecordState State) { RecordState = State; }
 
 	void CheckQueueSize();
 
+	UFUNCTION(BlueprintCallable)
 	void Setup(UMeshComponent* MeshToRecord);
 
 
 private:
-	UPROPERTY(EditAnywhere, Category = Recorder, meta = (AllowPrivateAccess = true, ClampMin = 0))
-	ERecordState RecordState = ERecordState::ERS_Stopped;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Recorder, meta = (AllowPrivateAccess = true, ClampMin = 0))
+	ERecordState RecordState = ERecordState::ERS_Recording;
 	
 	UPROPERTY(EditAnywhere, Category = Recorder, meta = (AllowPrivateAccess = true, ClampMin = 0))
 	int MaxRecordedFrame = 240;
