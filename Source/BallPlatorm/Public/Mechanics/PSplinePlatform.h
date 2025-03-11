@@ -19,10 +19,8 @@ public:
 	virtual void Tick(float DeltaTime) override;
 	void CalculatePosition(bool Opening);
 	void MovePlatform() const;
+	
 	virtual USceneComponent* GetDefaultAttachComponent() const override;
-
-protected:
-	virtual void BeginPlay() override;
 
 #if WITH_EDITOR
 	virtual void PostEditChangeProperty(FPropertyChangedEvent& PropertyChangedEvent) override;

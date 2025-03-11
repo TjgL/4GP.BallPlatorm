@@ -19,12 +19,6 @@ APSplinePlatform::APSplinePlatform()
 	PlatformAttachmentPoint->SetupAttachment(SplineComponent);
 }
 
-void APSplinePlatform::BeginPlay()
-{
-	Super::BeginPlay();
-	
-}
-
 void APSplinePlatform::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
@@ -68,7 +62,6 @@ void APSplinePlatform::CalculatePosition(const bool Opening)
 			NewPosition = PositionOnSpline + (Distance / SplineLenght) * 100;
 		}
 	}
-	
 	
 	PositionOnSpline = NewPosition;
 }
