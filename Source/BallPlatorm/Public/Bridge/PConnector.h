@@ -14,19 +14,24 @@ class BALLPLATORM_API APConnector : public AActor
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess))
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Bridge, meta = (AllowPrivateAccess))
 	TArray<TObjectPtr<APBeam>> Beams = TArray<TObjectPtr<APBeam>>();
 	
-	UPROPERTY(EditAnywhere, Category = "Bridge")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Bridge")
 	bool bIsAnchor = false;
+
+private:
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Bridge, meta = (AllowPrivateAccess = true))
+	TObjectPtr<UStaticMeshComponent> Mesh;
 	
 public:
 	APConnector();
 
-	FVector2D ForceSumStored;
+	FVector ForceSumStored;
 	float MassSumStored;
 
 	void CalculateForces();
+	void Disconnect(APBeam* APBeam);
 
 protected:
 	virtual void BeginPlay() override;

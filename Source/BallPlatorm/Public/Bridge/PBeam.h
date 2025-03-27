@@ -14,9 +14,9 @@ class BALLPLATORM_API APBeam : public AActor
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(EditAnywhere, Category = "Bridge")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Bridge")
 	TObjectPtr<APConnector> Start;
-	UPROPERTY(EditAnywhere, Category = "Bridge")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Bridge")
 	TObjectPtr<APConnector> End;
 
 	UPROPERTY(EditAnywhere, Category = "Bridge")
@@ -29,14 +29,19 @@ public:
 
 	float ForceFactor = 0.f;
 
+private:
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Bridge, meta = (AllowPrivateAccess = true))
+	TObjectPtr<UStaticMeshComponent> Mesh;
+
 public:
 	APBeam();
 
-	FVector2D GetForceAtConnector(APConnector* Connector);
+	FVector GetForceAtConnector(APConnector* Connector);
 
 protected:
 	virtual void BeginPlay() override;
 
 public:
 	virtual void Tick(float DeltaTime) override;
+	void Break(APConnector* Connector);
 };
