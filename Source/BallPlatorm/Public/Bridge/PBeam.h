@@ -44,4 +44,7 @@ protected:
 public:
 	virtual void Tick(float DeltaTime) override;
 	void Break(APConnector* Connector);
+	void BreakAll();
+	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent)
+	void OnForceApplied(float Factor);
 };

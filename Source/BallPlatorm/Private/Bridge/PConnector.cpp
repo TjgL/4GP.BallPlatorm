@@ -11,6 +11,8 @@ APConnector::APConnector()
 	PrimaryActorTick.bCanEverTick = true;
 	Mesh = CreateDefaultSubobject<UStaticMeshComponent>("Mesh");
 	RootComponent = Mesh;
+
+	Mesh->SetSimulatePhysics(!bIsAnchor);
 }
 
 void APConnector::CalculateForces()
@@ -33,7 +35,7 @@ void APConnector::Disconnect(APBeam* APBeam)
 void APConnector::BeginPlay()
 {
 	Super::BeginPlay();
-	
+	Mesh->SetSimulatePhysics(!bIsAnchor);
 }
 
 void APConnector::Tick(float DeltaTime)
@@ -44,7 +46,7 @@ void APConnector::Tick(float DeltaTime)
 	if (!bIsAnchor)
 	{
 		CalculateForces();
-		DrawDebugLine(GetWorld(), GetActorLocation(), GetActorLocation() + ForceSumStored, FColor::Red);
+		// DrawDebugLine(GetWorld(), GetActorLocation(), GetActorLocation() + ForceSumStored, FColor::Red);
 		Mesh->AddForce(ForceSumStored);
 	}
 }
