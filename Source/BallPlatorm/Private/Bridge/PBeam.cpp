@@ -4,8 +4,6 @@
 #include "Bridge/PBeam.h"
 
 #include "Bridge/PConnector.h"
-#include "Kismet/KismetMathLibrary.h"
-#include "Kismet/KismetSystemLibrary.h"
 
 
 APBeam::APBeam()
